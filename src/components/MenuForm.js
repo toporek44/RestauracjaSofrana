@@ -1,4 +1,4 @@
-import React, { useRef, useState} from 'react';
+import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
 import firebase from "../Firebase/firebase";
 import styled from "styled-components"
 import {device} from "../assets/device";
@@ -7,6 +7,8 @@ import * as Yup from "yup"
 import Button from "./Button";
 import {ReactComponent as Arrow} from "../assets/svg/arrow.svg";
 import {CARD_TYPES} from "../constants";
+import {AuthContext} from "../Firebase/Auth";
+import {FormContext} from "../contexts/FormContext";
 
 
 const Wrapper = styled.div`
@@ -114,7 +116,7 @@ position:absolute;
 top:15px;
 right:10px;
 fill: #ff5200;
-transform:${({isModalOpen}) => isModalOpen ? "rotate(0deg)" : "rotate(180deg) "};
+transform:${({isModalOpen}) => isModalOpen? "rotate(0deg)" : "rotate(180deg) "};
 transition: all .7s ease-in-out;
 z-index: 2001;
 
@@ -129,6 +131,8 @@ export const StyledErrorMessage = styled.div`
 position:relative;
 top:-8px;
 color:#de6363;
+background: #fff;
+padding: .3rem;
 font-size: 1.4rem;
 text-align: center;
 margin:0 auto;
@@ -157,45 +161,73 @@ resize: none;
 const MenuForm = () => {
     const [isModalOpen, setModalState] = useState(true)
     const select = useRef(null)
+    const { isUpdateActive, itemID} = useContext(FormContext)
 
 
-
-
-    const { handleSubmit,errors,touched,values,handleReset, getFieldProps,setValues } = useFormik({
+    const { handleSubmit, errors, touched, values, handleReset, getFieldProps, setValues } = useFormik({
         initialValues:
             {
                 name: "",
                 img: "",
                 desc: "",
                 price: "",
-                category: CARD_TYPES.starters
+                category: CARD_TYPES.starters,
+
             },
 
-        validationSchema: () => Yup.object({
+        validationSchema: () =>
+            !isUpdateActive?
+
+                Yup.object({
             name: Yup.string().required("Required"),
             img: Yup.string().required("Required"),
             desc: Yup.string().required("Required"),
             price :Yup.string().required("Required"),
-
+        })
+         :
+                 Yup.object({
+            name: Yup.string().notRequired("Required"),
+            img: Yup.string().notRequired("Required"),
+            desc: Yup.string().notRequired("Required"),
+            price :Yup.string().notRequired("Required"),
         }),
 
         onSubmit: (values,{ setSubmitting }) => {
 
-            firebase.firestore().collection("Menu").add({
-                ...values
-            })
-                .then(() => {
-                    setValues({
-                        ...values,
-                        name: "",
-                        img: "",
-                        desc: "",
-                        price: "",
-                        category: CARD_TYPES.starters
+            if(isUpdateActive) {
+                firebase.firestore().collection("Menu").doc(itemID).update({
+                    ...values
+                })
+                    .then(() => {
+                        setValues({
+                            ...values,
+                            name: "",
+                            img: "",
+                            desc: "",
+                            price: "",
+                            category: CARD_TYPES.starters,
+
+                        })
 
                     })
-
+            } else {
+                firebase.firestore().collection("Menu").add({
+                    ...values
                 })
+                    .then(() => {
+                        setValues({
+                            ...values,
+                            name: "",
+                            img: "",
+                            desc: "",
+                            price: "",
+                            category: CARD_TYPES.starters,
+
+                        })
+
+                    })
+            }
+
             if(Object.keys(errors).length !== 0) return
 
             setTimeout(() => {
@@ -210,18 +242,17 @@ const MenuForm = () => {
 
 
 
-
     return (
         <>
-            <Wrapper isModalOpen={isModalOpen}
-            onClick={()=> console.log(values)}
+            <Wrapper
+                isModalOpen={isUpdateActive? isUpdateActive : isModalOpen}
             >
-                <StyledArrow isModalOpen={isModalOpen} onClick={()=>{
+                <StyledArrow isModalOpen={isUpdateActive? isUpdateActive : isModalOpen}onClick={()=>{
                     setModalState(!isModalOpen)
                     handleReset(undefined)
                 }}/>
-                <StyledForm onSubmit={handleSubmit} isModalOpen={isModalOpen}>
-                    <h3>Dodaj Potrawe</h3>
+                <StyledForm onSubmit={handleSubmit} isModalOpen={isUpdateActive? isUpdateActive : isModalOpen}>
+                    <h3>{isUpdateActive? "Zaktualizuj Potrawe" : "Dodaj Potrawe"}</h3>
 
 
                     <label>
@@ -293,7 +324,7 @@ const MenuForm = () => {
                     </label>
                     {errors.price  && touched.price && <StyledErrorMessage>{errors.price}</StyledErrorMessage>}
 
-                    <Button tertiary type="submit">Create Card</Button>
+                    <Button tertiary type="submit">{isUpdateActive? "Zaktualizuj Dane" : "Dodaj"}</Button>
                 </StyledForm>
 
 
@@ -302,5 +333,7 @@ const MenuForm = () => {
         </>
     );
 };
+
+
 
 export default MenuForm;

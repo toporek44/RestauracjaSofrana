@@ -25,11 +25,11 @@ const Root = ()=> {
                           <Header />
                           <Switch>
                                 <Route exact path="/" component={Home} />
-                                <Route exact path="/Menu" component={Menu} />
-                                <Route exact path="/Hotel" component={Hotel} />
-                                <Route exact path="/Imprezy" component={Events} />
-                                <Route exact path="/Kontakt" component={Contact} />
-                                <Route exact path="/Login" component={Login} />
+                                <Route  path="/Menu" component={Menu} />
+                                <Route  path="/Hotel" component={Hotel} />
+                                <Route  path="/Imprezy" component={Events} />
+                                <Route  path="/Kontakt" component={Contact} />
+                                <Route  path="/Login" component={Login} />
                                 <Route component={The404Page}/>
                           </Switch>
                           <Footer />

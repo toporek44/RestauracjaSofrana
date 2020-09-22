@@ -183,7 +183,8 @@ const Hotel = () => {
                 img={hotelBanner}
                 title="HOTEL"
                 secondary
-                none
+                none="none"
+
             />
             <Wrapper>
                 <div>
@@ -231,8 +232,8 @@ const Hotel = () => {
                     }}>
 
                     {photos.map(({src})=>
-                        (                 <SplideSlide>
-                                <GalleryImage  src={src} key={src}/>
+                        (   <SplideSlide key={src}>
+                                <GalleryImage  src={src} />
                             </SplideSlide>
                         )
                     )}

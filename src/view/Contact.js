@@ -5,6 +5,12 @@ import styled from "styled-components"
 import {device} from "../assets/device";
 import {ReactComponent as Email} from "../assets/svg/send_mail.svg"
 import {ReactComponent as Smile} from "../assets/svg/smile.svg"
+import {useFormik} from "formik"
+import * as Yup from "yup"
+import {CARD_TYPES} from "../constants";
+import firebase from "../Firebase/firebase";
+import {StyledErrorMessage} from "../components/MenuForm";
+
 
 const Map = styled.iframe`
 width:100%;
@@ -124,6 +130,7 @@ color: #fff;
 padding: 1rem ;
 resize: none;
 transition: all .2s ease-in-out;
+margin-bottom: 1.5rem;
 font-size: 1.3rem;
 
     &::placeholder{
@@ -171,50 +178,76 @@ text-align: center;
     }
 `
 const Contact = () => {
-    const [formState, updateFormState] = useState({
-        name: '',
-        email: '',
-        message: "",
-        mailSent: false,
-        error: null
-    });
+    // const [formState, updateFormState] = useState({
+    //     name: '',
+    //     email: '',
+    //     message: "",
+    //     mailSent: false,
+    //     error: null
+    // });
 
 
+    const { handleSubmit,errors,touched,values,handleReset, getFieldProps,setValues } = useFormik({
+        initialValues:
+            {
+                name: '',
+                email: '',
+                message: "",
+                mailSent: false,
+                error: null
+            },
 
-    const sendEmail = (e) => {
-        e.preventDefault();
-        axios
-            .post(
-                process.env.REACT_APP_EMAIL_SEND_ENDPOINT,
-                { ...formState, time: Date.now() },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',
-                        'Access-Control-Allow-Origin': '*'
+        validationSchema: () => Yup.object({
+            name: Yup.string().required("Required"),
+            email: Yup.string().required("Required"),
+            message: Yup.string().required("Required"),
+        }),
+
+        onSubmit: (values,{ setSubmitting }) => {
+
+            axios
+                .post(
+                    process.env.REACT_APP_EMAIL_SEND_ENDPOINT,
+                    { ...values, time: Date.now() },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',
+                            'Access-Control-Allow-Origin': '*'
+                        }
                     }
-                }
-            )
-            .then((res) => {
-                updateFormState({ ...formState, mailSent: true});
-            })
-            .catch((error) => {
-                updateFormState({ ...formState, error });
-            });
+                )
+                .then((res) => {
+                    setValues({ ...values, mailSent: true});
+                })
+                .catch((error) => {
+                    setValues({ ...values, error });
+                });
 
-    };
+            if(Object.keys(errors).length !== 0) return
+
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 400);
+
+
+        }
+
+    })
+
+
 
     return (
         <>
 
             <Wrapper>
 
-                {formState.mailSent?
+                {values.mailSent?
                     <StyledForm>
                     <MailSentNotification>Wiadomość została wysłana <Smile/> </MailSentNotification>
                     </StyledForm>
                     :
-                    <StyledForm onSubmit={(e)=> sendEmail(e)} >
+                    <StyledForm onSubmit={handleSubmit} >
 
 
 
@@ -226,30 +259,27 @@ const Contact = () => {
                         <Field
                             type="text"
                             placeholder="Imię"
-                            onChange={(e) => {
-                                updateFormState({ ...formState, name: e.target.value });
-                            }}
-                            value={formState.name}
+                            {...getFieldProps("name")}
                             name='name'
                         />
+                        {errors.name && touched.name && <StyledErrorMessage>{errors.name}</StyledErrorMessage>}
+
                         <Field
                             type="text"
                             placeholder="Email"
-                            onChange={(e) => {
-                                updateFormState({ ...formState, email: e.target.value });
-                            }}
-                            value={formState.email}
+                            {...getFieldProps("email")}
                             name='email'
                         />
+                        {errors.email && touched.email && <StyledErrorMessage>{errors.email}</StyledErrorMessage>}
+
                         <StyledTextArea
                             type="text"
                             placeholder="Wiadomość"
-                            onChange={(e) => {
-                                updateFormState({ ...formState, message: e.target.value });
-                            }}
-                            value={formState.message}
+                            {...getFieldProps("message")}
                             name='message'
                         />
+                        {errors.message && touched.message && <StyledErrorMessage>{errors.message}</StyledErrorMessage>}
+
                         <Button secondary type="submit">Wyślij</Button>
                     </StyledForm>
                 }

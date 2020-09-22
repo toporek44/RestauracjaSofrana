@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import {AuthContext} from "../Firebase/Auth";
 import {SectionTitle} from "../view/Home"
 import menuBanner from "../assets/images/menuBanner.jpg"
+import {FormProvider} from "../contexts/FormContext";
 
 const OpenHours = styled.div`
 display: flex;
@@ -35,11 +36,11 @@ const Menu = () => {
     const {currentUser} = useContext(AuthContext)
 
     return (
-        <>
+        <FormProvider>
             <Heading
                 img={menuBanner}
                 title="MENU"
-                none
+                none="none"
                 secondary
             />
 
@@ -60,7 +61,7 @@ const Menu = () => {
                 <HourWrapper><span>Sobota </span> 12.00 - 24.00</HourWrapper>
                 <HourWrapper><span>Niedziela </span> 12.00 - 23.00</HourWrapper>
             </OpenHours>
-        </>
+        </FormProvider>
     );
 };
 

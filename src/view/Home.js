@@ -10,7 +10,7 @@ import {ReactComponent as HotelIcon}  from "../assets/svg/hotel.svg"
 import {ReactComponent as GlassIcon}  from "../assets/svg/glass.svg"
 import {ReactComponent as WeddingIcon}  from "../assets/svg/wedding.svg"
 
-import mainPageFood from "../assets/images/sofranaMain.jpg"
+import sofranaMainImg from "../assets/images/sofranaMain.jpg"
 import triangle from "../assets/images/triangle_bg.png";
 
 import photo1 from "../assets/images/HomePage/home1.jpg";
@@ -244,7 +244,7 @@ const Home = () => {
     return (
         <>
             <Heading
-                img={mainPageFood}
+                img={sofranaMainImg}
                 title="Wierzymy, że dobre jedzenie może sprawić uśmiech"
             />
             <AboutSection>

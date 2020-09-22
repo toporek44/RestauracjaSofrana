@@ -18,18 +18,18 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 
 
-export const addSnapshot= ( collection, setState) =>{
+export const addSnapshot=  ( collection, setState) =>{
 
     // const unsubscribe = firebase
 
     db.collection(collection)
 
         .onSnapshot((snapshot => {
-            const newCard = snapshot.docs.map((doc)=> ({
+             const newCard =   snapshot.docs.map((doc)=> ({
                 id:doc.id,
                 ...doc.data()
             }))
-            setState(newCard)
+             setState(newCard)
         }))
 
     // return() => unsubscribe()

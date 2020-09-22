@@ -1,8 +1,9 @@
-import React, { useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components"
 import MenuListItem from "./MenuListItem";
 import {device} from "../assets/device";
 import {addSnapshot} from "../Firebase/firebase";
+import {FormContext} from "../contexts/FormContext";
 
 const Wrapper = styled.div`
 background-color:${({secondary})=> secondary? "#fff": "#212121" };
@@ -70,8 +71,9 @@ display:flex;
 
 const MenuList = ({secondary}) => {
     const menuCategories = ["Przystawki","Dania Główne", "Desery", "Drinki", "Sałatki"]
-     const [menuItems, setMenuItems] = useState([])
+    const [menuItems, setMenuItems] = useState([])
     const [activeTab, setActiveTab] = useState("Przystawki");
+
     const handleCheckCategory = e => {
         const index = e.target.innerText
         if (index !== activeTab) {
@@ -116,9 +118,6 @@ const MenuList = ({secondary}) => {
                                     />
                                     })
                             }
-
-
-
 
                         </FoodList>
 

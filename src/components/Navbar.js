@@ -45,66 +45,45 @@ const Navbar = () => {
 
     return (
 
-<Wrapper>
-    <Hamburger/>
+             <Wrapper>
+                    <Hamburger/>
 
-            <StyledNavLink
-                to='/'
-                exact
-                activeClassName='active'
-            >
-                Strona Główna
-            </StyledNavLink>
+                    <StyledNavLink
+                        to='/'
+                        exact
+                        activeClassName='active'
+                    >
+                        Strona Główna
+                    </StyledNavLink>
 
-            <StyledNavLink
-                to='/Menu'
-                exact
-                activeClassName='active'
-            >
-                Menu
-            </StyledNavLink>
+                    <StyledNavLink
+                        to='/Menu'
+                        activeClassName='active'
+                    >
+                        Menu
+                    </StyledNavLink>
 
-            <StyledNavLink
-                to='/Hotel'
-                exact
-                activeClassName='active'
-            >
-                Hotel
-            </StyledNavLink>
+                    <StyledNavLink
+                        to='/Hotel'
+                        activeClassName='active'
+                    >
+                        Hotel
+                    </StyledNavLink>
 
-            <StyledNavLink
-                to='/Imprezy'
-                exact
-                activeClassName='active'
-            >
-                Imprezy
-            </StyledNavLink>
-            {/*<StyledNavLink*/}
-            {/*    to='/Galeria'*/}
-            {/*    exact*/}
-            {/*    activeClassName='active'*/}
-            {/*>*/}
-            {/*    Gallery*/}
-            {/*</StyledNavLink>*/}
-            <StyledNavLink
-                to='/Kontakt'
-                exact
-                activeClassName='active'
-            >
-                Kontakt
-            </StyledNavLink>
+                    <StyledNavLink
+                        to='/Imprezy'
+                        activeClassName='active'
+                    >
+                        Imprezy
+                    </StyledNavLink>
 
-    {/*<StyledNavLink*/}
-    {/*    to='/ShoppingCart'*/}
-    {/*    exact*/}
-    {/*    activeClassName='active'*/}
-    {/*>*/}
-    {/*    <CartItemsCounter/>*/}
-    {/*</StyledNavLink>*/}
-
-
-
-</Wrapper>
+                    <StyledNavLink
+                        to='/Kontakt'
+                        activeClassName='active'
+                    >
+                        Kontakt
+                    </StyledNavLink>
+             </Wrapper>
 
     );
 };

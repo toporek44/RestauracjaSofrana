@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom"
 import styled from "styled-components"
 import {ReactComponent as BaptismIcon} from "../assets/svg/baptism.svg"
@@ -91,14 +91,14 @@ width:100%;
 height: 100%;
 background: #FF7241;
 margin:0;
-transition: all .4s ease-in-out;
+transition: all 1.5s ease-in-out;
 color:#fff;
 z-index: 9999;
 
     &:hover {
         cursor: pointer;
-        transform: translateY(-100%) ;
-        transition: all .4s ease-in-out;
+        transform: translateY(-300%) ;
+        transition: all 0.8s ease-in-out;
     }
 `
 
@@ -196,6 +196,8 @@ height: 40px;
       }
 `
 const Events = () => {
+
+
     return (
         <>
             <OfferWrapper>
@@ -211,7 +213,7 @@ const Events = () => {
                     et sollicitudin massa. Mauris ut justo a purus euismod egestas. Cras porttitor lectus ut lacus
                     luctus,
                     eget ornare felis bibendum. Cras ac eros quis lorem porta vehicula.
-                    <HoveredRect>
+                    <HoveredRect >
                         Wesela
                         <StyledSvg>
                             <WeddingIcon className="categorySvg"/>
@@ -231,7 +233,7 @@ const Events = () => {
                     et sollicitudin massa. Mauris ut justo a purus euismod egestas. Cras porttitor lectus ut lacus
                     luctus,
                     eget ornare felis bibendum. Cras ac eros quis lorem porta vehicula.
-                    <HoveredRect className="white">
+                    <HoveredRect className="white" >
                         Komunie
                         <StyledSvg>
                             <CommunionIcon className="categorySvg"/>
