@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import styled from "styled-components"
 import MenuListItem from "./MenuListItem";
 import {device} from "../assets/device";
 import {addSnapshot} from "../Firebase/firebase";
-import {FormContext} from "../contexts/FormContext";
 
 const Wrapper = styled.div`
 background-color:${({secondary})=> secondary? "#fff": "#212121" };

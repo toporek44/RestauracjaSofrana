@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 import {ReactComponent as CloseBtn} from "../assets/svg/close.svg";
 import {ReactComponent as EditIcon} from "../assets/svg/edit.svg";
@@ -6,7 +6,6 @@ import foodImg from "../assets/images/foodImg.jpg"
 import {device} from "../assets/device";
 import firebase, {deleteDoc} from "../Firebase/firebase";
 import {AuthContext} from "../Firebase/Auth";
-import {CARD_TYPES} from "../constants";
 import {FormContext} from "../contexts/FormContext";
 
 const MenuItem = styled.li`
@@ -170,12 +169,7 @@ const MenuListItem = ( { img, name="PizzaMargarita", desc, price, activeTab , id
         const handleUpdateItem =   () => {
             setUpdateActive(true)
             setItemID( id )
-            // setNewValues({
-            //     name: name,
-            //     img: img,
-            //     desc: desc,
-            //     price: price,
-            // })
+
         }
 
     return (

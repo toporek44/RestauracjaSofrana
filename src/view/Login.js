@@ -5,7 +5,6 @@ import {AuthContext} from "../Firebase/Auth";
 import styled from "styled-components"
 import {device} from "../assets/device";
 import Button from "../components/Button";
-// import Button from "./Button";
 
 
 const Wrapper = styled.div`

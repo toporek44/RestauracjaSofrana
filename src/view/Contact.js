@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import axios from "axios"
 import  Button from "../components/Button";
 import styled from "styled-components"
@@ -7,8 +7,6 @@ import {ReactComponent as Email} from "../assets/svg/send_mail.svg"
 import {ReactComponent as Smile} from "../assets/svg/smile.svg"
 import {useFormik} from "formik"
 import * as Yup from "yup"
-import {CARD_TYPES} from "../constants";
-import firebase from "../Firebase/firebase";
 import {StyledErrorMessage} from "../components/MenuForm";
 
 
@@ -178,13 +176,6 @@ text-align: center;
     }
 `
 const Contact = () => {
-    // const [formState, updateFormState] = useState({
-    //     name: '',
-    //     email: '',
-    //     message: "",
-    //     mailSent: false,
-    //     error: null
-    // });
 
 
     const { handleSubmit,errors,touched,values,handleReset, getFieldProps,setValues } = useFormik({

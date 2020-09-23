@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import {device} from "../assets/device";
+import { device } from "../assets/device";
+import { Link } from "react-router-dom";
 import Heading from "../components/Heading";
 
 import {ReactComponent as CutleryIcon} from "../assets/svg/cutlery.svg"
@@ -136,11 +137,18 @@ align-items: center;
 flex-direction: column;
 margin:3rem 4rem;
 max-width: 270px;
+text-decoration: none;
+transition: all .3s ease-in-out;
+color:#fff;
 
      @media ${device.laptop} {
           margin:3rem 7rem;
     }
-
+    
+    &:hover {
+        transform: scale(1.04);
+        transition: all .3s ease-in-out;
+    }
 
 
 `
@@ -261,22 +269,22 @@ const Home = () => {
             <ServicesSection>
                 <SectionTitle white>Nasze Usługi</SectionTitle>
                 <IconsWrapper>
-                    <ServiceContainer>
+                    <ServiceContainer as={Link} to="/menu">
                         <RestaurantIcon/>
                         <Label>Restauracja</Label>
                     </ServiceContainer>
 
-                    <ServiceContainer>
+                    <ServiceContainer as={Link} to="/hotel">
                         <HotelIcon />
                         <Label>Hotel</Label>
                     </ServiceContainer>
 
-                    <ServiceContainer>
+                    <ServiceContainer as={Link} to="/imprezy">
                         <GlassIcon />
                         <Label>Imprezy Okolicznościowe</Label>
                     </ServiceContainer>
 
-                    <ServiceContainer>
+                    <ServiceContainer as={Link} to="/imprezy">
                         <WeddingIcon />
                         <Label>Wesela</Label>
                     </ServiceContainer>

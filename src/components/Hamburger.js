@@ -147,7 +147,7 @@ const SidebarStyles = styled.div`
 const StyledNavlink = styled(NavLink)`
     position: relative;
     margin:0;
-    color:#2EC4B6;
+    color:#ff5200;
     height: 60px;
     width:100%;
     border:none;
@@ -177,28 +177,22 @@ const Hamburger = () =>{
             <SidebarStyles>
                 <div className={hamburgerActive ? "sidebarActive" : "sidebar"}>
                     <ul className="sidebarList">
-                        {/*<StyledNavlink*/}
-                        {/*    to='/ShoppingCart'*/}
-                        {/*    exact*/}
-                        {/*    activeClassName='active'*/}
-                        {/*    onClick={() => setHamburgerState(!hamburgerActive)}*/}
-                        {/*>*/}
-                        {/*    <CartItemsCounter/>*/}
-                        {/*</StyledNavlink>*/}
                         {pageNames.map((name)=>
-                            <StyledNavlink
-                            key={name}
-                            to={name === "Home" ? ('/') : (`/${name}`)}
-                            activeClassName='activeLink'
-                            exact
-                            onClick={() => setHamburgerState(!hamburgerActive)}
-                            >
+                            <li key={name}  className="sidebarItem">
+                                <StyledNavlink
+                                    key={name}
+                                    to={name === "Home" ? ('/') : (`/${name}`)}
+                                    activeClassName='activeLink'
+                                    exact
+                                    onClick={() => setHamburgerState(!hamburgerActive)}
+                                >
 
-                                <li key={name}  className="sidebarItem">
+
                                     {name}
-                                </li>
 
-                        </StyledNavlink>)}
+                                </StyledNavlink>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </SidebarStyles>

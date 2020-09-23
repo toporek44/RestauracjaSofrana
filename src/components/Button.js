@@ -7,6 +7,7 @@ display: ${({none})=> none? "none": "flex"};
 background-color: transparent;
 border:1px solid #fff;
 height: 45px;
+min-height: 45px;
 width: 150px;
 color:#fff;
 font-weight: 600;

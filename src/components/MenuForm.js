@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
+import React, { useContext, useRef, useState} from 'react';
 import firebase from "../Firebase/firebase";
 import styled from "styled-components"
 import {device} from "../assets/device";
@@ -7,7 +7,6 @@ import * as Yup from "yup"
 import Button from "./Button";
 import {ReactComponent as Arrow} from "../assets/svg/arrow.svg";
 import {CARD_TYPES} from "../constants";
-import {AuthContext} from "../Firebase/Auth";
 import {FormContext} from "../contexts/FormContext";
 
 
@@ -44,7 +43,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-width:350px;
+width:100%;
 height: 100%;
 background-color: #fff;
 padding: 4rem 2rem 2rem 2rem;
@@ -94,6 +93,7 @@ width:250px;
     color: #ff5200;
     width:100%;
     height: 30px;
+    min-height: 30px;
     padding: 1.3rem;
     transition: .3s ease-in-out;
     transform-origin: 50%;
